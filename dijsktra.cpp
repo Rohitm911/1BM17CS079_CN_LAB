@@ -12,25 +12,27 @@ int minDistance(int dist[], bool visited[])
 
 	for (int v = 0; v < V; v++) 
 		if (visited[v] == false && dist[v] <= min) 
-			min = dist[v], min_index = v; 
+		{
+		   min = dist[v]; 
+		   min_index = v; 
+		}	
 
 	return min_index; 
 } 
 
 
-void printSolution(int dist[]) 
+void printSolution(int dist[], int src, int target) 
 { 
-	printf("Vertex \t\t Distance from Source\n"); 
-	for (int i = 0; i < V; i++) 
-		printf("%d \t\t %d\n", i+1, dist[i]); 
+	cout << target <<" Distance from Source : " << src <<"\n"; 
+	cout << dist[target-1] << endl;
+
 } 
 
 
-void dijkstra(int graph[V][V], int src) 
+void dijkstra(int graph[V][V], int src, int target) 
 { 
 	int dist[V]; 
-
-	bool visited[V]; 
+   bool visited[V]; 
 
 	
 	for (int i = 0; i < V; i++) 
@@ -42,7 +44,6 @@ void dijkstra(int graph[V][V], int src)
 
 	
 	dist[src] = 0; 
-
 	
 	for (int count = 0; count < V - 1; count++) { 
 		
@@ -55,7 +56,7 @@ void dijkstra(int graph[V][V], int src)
 				dist[v] = dist[u] + graph[u][v]; 
 	} 
 
-	printSolution(dist); 
+	printSolution(dist, src, target); 
 } 
  
 int main() 
@@ -77,8 +78,13 @@ int main()
       graph[v2-1][v1-1] = w;
    }
    
-	dijkstra(graph, 0); 
+   cout << "Enter source :" << endl;
+   int src;
+   cin >> src;
+   cout << "Enter destination vertex : " << endl;
+   int target;
+   cin >> target;
+	dijkstra(graph, src - 1,target); 
    
 	return 0; 
 } 
-
